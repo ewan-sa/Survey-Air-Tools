@@ -1,3 +1,5 @@
+
+L3 calculator · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,33 +20,41 @@
     --sa-grey:    #F2F2F2;
     --sa-blue-10: rgba(46,75,151,0.08);
     --sa-blue-20: rgba(46,75,151,0.15);
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
+    --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px;
   }
   body { font-family: 'Space Grotesk', sans-serif; font-weight: 300; background: var(--sa-grey); color: var(--sa-black); min-height: 100vh; }
   header { background: var(--sa-navy); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo { display: flex; align-items: center; gap: 12px; }
   .logomark { width: 36px; height: 36px; object-fit: contain; }
   .wordmark { color: var(--sa-white); font-size: 18px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
   .wordmark span { display: block; }
   .header-tag { color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
   .page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   .page-title { font-size: 22px; font-weight: 700; color: var(--sa-navy); margin-bottom: 4px; }
-  .page-sub { font-size: 13px; font-weight: 400; color: #666; margin-bottom: 1.75rem; }
+  .page-sub { font-size: 13px; color: #666; margin-bottom: 1.75rem; }
   .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
   @media (max-width: 640px) { .input-grid { grid-template-columns: 1fr; } .output-grid { grid-template-columns: 1fr 1fr !important; } }
   .card { background: var(--sa-white); border-radius: var(--radius-lg); border: 1px solid rgba(39,57,103,0.12); padding: 1.25rem 1.5rem; }
   .card-title { font-size: 11px; font-weight: 600; color: var(--sa-blue); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1.5px solid var(--sa-blue-20); }
-  .row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+ 
+  /* Slider rows */
+  .row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
   .row:last-child { margin-bottom: 0; }
-  .row label { font-size: 13px; font-weight: 400; color: #555; min-width: 132px; flex-shrink: 0; }
-  .row input[type=range] { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; background: var(--sa-blue-20); border-radius: 2px; outline: none; cursor: pointer; }
+  .row label { font-size: 13px; color: #555; min-width: 128px; flex-shrink: 0; }
+  .row input[type=range] { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; background: var(--sa-blue-20); border-radius: 2px; outline: none; cursor: pointer; min-width: 0; }
   .row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--sa-blue); border: 2px solid var(--sa-white); box-shadow: 0 0 0 1.5px var(--sa-blue); cursor: pointer; }
   .row input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--sa-blue); border: 2px solid var(--sa-white); box-shadow: 0 0 0 1.5px var(--sa-blue); cursor: pointer; }
-  .val { font-size: 13px; font-weight: 600; color: var(--sa-navy); min-width: 68px; text-align: right; white-space: nowrap; }
-  .row select { flex: 1; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 400; color: var(--sa-black); background: var(--sa-grey); border: 1px solid rgba(39,57,103,0.18); border-radius: var(--radius-sm); padding: 7px 10px; outline: none; cursor: pointer; }
+ 
+  /* Editable number input next to slider */
+  .num-input-wrap { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
+  .num-input { width: 52px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: var(--sa-navy); background: var(--sa-grey); border: 1px solid rgba(39,57,103,0.2); border-radius: var(--radius-sm); padding: 3px 6px; text-align: right; outline: none; }
+  .num-input:focus { border-color: var(--sa-blue); background: #fff; box-shadow: 0 0 0 2px var(--sa-blue-10); }
+  .num-unit { font-size: 12px; color: #888; white-space: nowrap; min-width: 22px; }
+ 
+  .row select { flex: 1; font-family: 'Space Grotesk', sans-serif; font-size: 13px; color: var(--sa-black); background: var(--sa-grey); border: 1px solid rgba(39,57,103,0.18); border-radius: var(--radius-sm); padding: 7px 10px; outline: none; cursor: pointer; }
   .row select:focus { border-color: var(--sa-blue); box-shadow: 0 0 0 2px var(--sa-blue-10); }
+ 
+  /* Output metrics */
   .output-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
   .metric { background: var(--sa-white); border-radius: var(--radius-md); border: 1px solid rgba(39,57,103,0.12); padding: 1rem 1.1rem; position: relative; overflow: hidden; }
   .metric::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--sa-blue); border-radius: var(--radius-md) var(--radius-md) 0 0; }
@@ -56,63 +66,92 @@
   .metric.warn .metric-value { color: #d97706; }
   .metric.ok   .metric-value { color: #16a34a; }
   .metric.danger .metric-value { color: #dc2626; }
-  .metric-unit { font-size: 12px; font-weight: 400; color: #999; }
+  .metric-unit { font-size: 12px; color: #999; }
+ 
+  /* Accuracy card */
   .acc-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 8px 0; border-bottom: 1px solid var(--sa-grey); }
   .acc-row:last-child { border-bottom: none; padding-bottom: 0; }
   .acc-row:first-child { padding-top: 0; }
-  .acc-label { color: #666; font-weight: 400; }
+  .acc-label { color: #666; }
   .acc-val   { font-weight: 600; color: var(--sa-navy); }
-  .note { font-size: 12px; font-weight: 400; color: #777; margin-top: 12px; padding: 10px 12px; background: var(--sa-blue-10); border-left: 3px solid var(--sa-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; line-height: 1.5; }
+ 
+  /* Notes */
+  .note { font-size: 12px; color: #777; margin-top: 12px; padding: 10px 12px; background: var(--sa-blue-10); border-left: 3px solid var(--sa-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; line-height: 1.5; }
   .alert-note { font-size: 12px; font-weight: 500; color: #92400e; margin-top: 8px; padding: 10px 12px; background: #fef3c7; border-left: 3px solid #d97706; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; display: none; }
   .alert-note.visible { display: block; }
+ 
+  /* Guidance panel */
+  .guidance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  @media (max-width: 640px) { .guidance-grid { grid-template-columns: 1fr; } }
+  .guidance-title { font-size: 11px; font-weight: 600; color: var(--sa-blue); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1.5px solid var(--sa-blue-20); }
+  .guidance-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding: 5px 0; border-bottom: 1px solid var(--sa-grey); gap: 8px; }
+  .guidance-row:last-child { border-bottom: none; }
+  .g-label { color: #666; flex-shrink: 0; }
+  .g-val { font-weight: 600; color: var(--sa-navy); text-align: right; }
+  .g-note { font-size: 11px; color: #999; text-align: right; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; margin-left: 4px; vertical-align: middle; }
+  .tag-dji { background: var(--sa-blue-10); color: var(--sa-blue); }
+  .tag-rec { background: #dcfce7; color: #15803d; }
+  .tag-est { background: #fef9c3; color: #854d0e; }
+ 
   footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(39,57,103,0.12); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-  footer p { font-size: 11px; color: #aaa; font-weight: 400; }
+  footer p { font-size: 11px; color: #aaa; }
   footer a { font-size: 11px; color: var(--sa-blue); text-decoration: none; font-weight: 500; }
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="logo">
     <img class="logomark" src="data:image/png;base64,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" alt="Survey Air logomark">
-    <div class="wordmark">
-      <span>survey</span>
-      <span>air</span>
-    </div>
+    <div class="wordmark"><span>survey</span><span>air</span></div>
   </div>
   <span class="header-tag">Flight planning tools</span>
 </header>
-
+ 
 <div class="page">
-
+ 
   <h1 class="page-title">DJI M400 + Zenmuse L3 &mdash; flight calculator</h1>
-  <p class="page-sub">Adjust parameters to see real-time impact on point density, swath width, and expected accuracy. Density figures are estimates; accuracy figures are DJI published values.</p>
-
+  <p class="page-sub">Adjust parameters to see real-time impact on point density, swath width, and expected accuracy. Type directly into any value field or use the slider. Density figures are estimates; accuracy figures are DJI published values.</p>
+ 
   <div class="input-grid">
     <div class="card">
       <div class="card-title">Flight parameters</div>
+ 
       <div class="row">
         <label>Altitude AGL</label>
-        <input type="range" id="alt" min="50" max="500" step="5" value="120">
-        <span class="val"><span id="altV">120</span> m</span>
+        <input type="range" id="alt" min="20" max="500" step="5" value="120">
+        <div class="num-input-wrap">
+          <input type="number" class="num-input" id="altN" min="20" max="500" value="120">
+          <span class="num-unit">m</span>
+        </div>
       </div>
       <div class="row">
         <label>Flight speed</label>
-        <input type="range" id="spd" min="5" max="17" step="1" value="15">
-        <span class="val"><span id="spdV">15</span> m/s</span>
+        <input type="range" id="spd" min="5" max="25" step="1" value="15">
+        <div class="num-input-wrap">
+          <input type="number" class="num-input" id="spdN" min="5" max="25" value="15">
+          <span class="num-unit">m/s</span>
+        </div>
       </div>
       <div class="row">
         <label>Side overlap</label>
         <input type="range" id="olap" min="10" max="80" step="5" value="20">
-        <span class="val"><span id="olapV">20</span> %</span>
+        <div class="num-input-wrap">
+          <input type="number" class="num-input" id="olapN" min="10" max="80" value="20">
+          <span class="num-unit">%</span>
+        </div>
       </div>
       <div class="row">
         <label>Forward overlap</label>
         <input type="range" id="folap" min="10" max="90" step="5" value="70">
-        <span class="val"><span id="folapV">70</span> %</span>
+        <div class="num-input-wrap">
+          <input type="number" class="num-input" id="folapN" min="10" max="90" value="70">
+          <span class="num-unit">%</span>
+        </div>
       </div>
     </div>
-
+ 
     <div class="card">
       <div class="card-title">Sensor settings</div>
       <div class="row">
@@ -149,16 +188,16 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="alert-note" id="alt-alert">
     Warning: altitude exceeds the recommended ceiling for the selected pulse rate. Reduce altitude or switch to a lower pulse rate.
   </div>
-
+ 
   <div class="output-grid">
     <div class="metric" id="mc-density">
       <div class="metric-label">Est. point density</div>
       <div class="metric-value" id="out-density">--</div>
-      <div class="metric-unit">pts / m2</div>
+      <div class="metric-unit">pts / m&sup2;</div>
     </div>
     <div class="metric" id="mc-swath">
       <div class="metric-label">Swath width</div>
@@ -178,7 +217,7 @@
     <div class="metric" id="mc-area">
       <div class="metric-label">Area per flight</div>
       <div class="metric-value" id="out-area">--</div>
-      <div class="metric-unit">km2 (est. 30 min effective)</div>
+      <div class="metric-unit">km&sup2; (est. 30 min effective)</div>
     </div>
     <div class="metric" id="mc-gsd">
       <div class="metric-label">RGB GSD (100 MP)</div>
@@ -186,7 +225,65 @@
       <div class="metric-unit">cm</div>
     </div>
   </div>
-
+ 
+  <!-- Guidance panels -->
+  <div class="guidance-grid">
+    <div class="card">
+      <div class="guidance-title">Recommended overlap <span class="tag tag-dji">DJI published</span></div>
+      <div class="guidance-row">
+        <span class="g-label">Side overlap (minimum)</span>
+        <span class="g-val">20%</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Forward overlap (minimum)</span>
+        <span class="g-val">60%</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Side &mdash; dense vegetation</span>
+        <span class="g-val">30&ndash;40%</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Forward &mdash; dense vegetation</span>
+        <span class="g-val">70&ndash;80%</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Side &mdash; complex / steep terrain</span>
+        <span class="g-val">40%+</span>
+      </div>
+      <p class="note">20% side / 60% forward are DJI&rsquo;s published minimums for the L3. Higher overlaps improve density in vegetation and reduce strip-edge artefacts on complex terrain.</p>
+    </div>
+ 
+    <div class="card">
+      <div class="guidance-title">Recommended flight speed</div>
+      <div class="guidance-row">
+        <span class="g-label">DJI accuracy benchmark <span class="tag tag-dji">DJI published</span></span>
+        <span class="g-val">15 m/s</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">DJI max efficiency <span class="tag tag-dji">DJI published</span></span>
+        <span class="g-val">17 m/s</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">L3 maximum (maintains accuracy) <span class="tag tag-dji">DJI published</span></span>
+        <span class="g-val">25 m/s</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Open / bare earth survey <span class="tag tag-rec">recommended</span></span>
+        <span class="g-val">15&ndash;17 m/s</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Low vegetation <span class="tag tag-rec">recommended</span></span>
+        <span class="g-val">12&ndash;15 m/s</span>
+      </div>
+      <div class="guidance-row">
+        <span class="g-label">Dense woodland <span class="tag tag-est">estimated</span></span>
+        <span class="g-val">9&ndash;12 m/s</span>
+      </div>
+      <p class="note">All DJI accuracy figures are measured at 15 m/s. The L3&rsquo;s higher pulse rate means it can fly faster than the L2 while maintaining equivalent ground point density. Woodland figures are practitioner guidance, not a DJI published specification.</p>
+    </div>
+  </div>
+ 
+  <!-- Accuracy card -->
   <div class="card">
     <div class="card-title">Expected accuracy &mdash; DJI published figures</div>
     <div class="acc-row">
@@ -205,21 +302,21 @@
       <span class="acc-label">Recommended RGB camera mode</span>
       <span class="acc-val" id="acc-cam">--</span>
     </div>
-    <p class="note">Accuracy figures are DJI lab conditions: Linear scanning, 15 m/s, RTK fixed solution, Calibrate IMU enabled, flight segments under 3,300 m, Optimize Point Cloud Accuracy enabled in Terra. Real-world values will vary with surface reflectivity, vegetation, and atmospheric conditions.</p>
+    <p class="note">Accuracy figures are DJI lab conditions: Linear scanning, 15 m/s, RTK fixed solution, Calibrate IMU enabled, flight segments under 3,300 m, Optimize Point Cloud Accuracy enabled in Terra.</p>
   </div>
-
+ 
   <footer>
     <p>Survey Air Ltd &mdash; internal tools &mdash; not for client distribution</p>
     <a href="https://surveyair.net" target="_blank">surveyair.net</a>
   </footer>
-
+ 
 </div>
-
+ 
 <script>
 const FOV_RAD = 70 * Math.PI / 180;
-
+ 
 function calcSwath(alt) { return 2 * alt * Math.tan(FOV_RAD / 2); }
-
+ 
 function calcDensity(alt, spd, prate, olap, smode, rmode, terrain) {
   const swath = calcSwath(alt);
   let density = (prate * 1000) / (spd * swath);
@@ -231,7 +328,7 @@ function calcDensity(alt, spd, prate, olap, smode, rmode, terrain) {
   if (terrain === 'veg_dense') density *= 0.25;
   return Math.round(density);
 }
-
+ 
 function getAccuracy(alt) {
   if (alt <= 120) return { vert: '3 cm', horiz: '4 cm', scale: '1:500', cam: '25 MP or 100 MP' };
   if (alt <= 150) return { vert: '3.5 cm', horiz: '5 cm', scale: '1:500 to 1:1000', cam: '25 MP recommended' };
@@ -239,7 +336,7 @@ function getAccuracy(alt) {
   if (alt <= 500) return { vert: '10 cm', horiz: '~15 cm', scale: '1:2000', cam: '100 MP' };
   return { vert: '>10 cm', horiz: '>15 cm', scale: '>1:2000', cam: '100 MP' };
 }
-
+ 
 function getAltLimit(prate) {
   if (prate == 100) return 500;
   if (prate == 350) return 300;
@@ -247,22 +344,49 @@ function getAltLimit(prate) {
   if (prate == 2000) return 50;
   return 300;
 }
-
+ 
+// Slider <-> number input sync
+function linkSliderAndNumber(sliderId, numberId, min, max) {
+  const slider = document.getElementById(sliderId);
+  const number = document.getElementById(numberId);
+ 
+  slider.addEventListener('input', function() {
+    number.value = slider.value;
+    update();
+  });
+ 
+  number.addEventListener('input', function() {
+    let v = parseFloat(number.value);
+    if (isNaN(v)) return;
+    v = Math.min(max, Math.max(min, v));
+    slider.value = v;
+    update();
+  });
+ 
+  number.addEventListener('blur', function() {
+    let v = parseFloat(number.value);
+    if (isNaN(v)) { number.value = slider.value; return; }
+    v = Math.min(max, Math.max(min, v));
+    number.value = v;
+    slider.value = v;
+    update();
+  });
+}
+ 
+linkSliderAndNumber('alt',   'altN',   20,  500);
+linkSliderAndNumber('spd',   'spdN',   5,   25);
+linkSliderAndNumber('olap',  'olapN',  10,  80);
+linkSliderAndNumber('folap', 'folapN', 10,  90);
+ 
 function update() {
-  const alt     = parseInt(document.getElementById('alt').value);
-  const spd     = parseInt(document.getElementById('spd').value);
-  const olap    = parseInt(document.getElementById('olap').value);
-  const folap   = parseInt(document.getElementById('folap').value);
+  const alt     = parseFloat(document.getElementById('altN').value) || 120;
+  const spd     = parseFloat(document.getElementById('spdN').value) || 15;
+  const olap    = parseFloat(document.getElementById('olapN').value) || 20;
   const prate   = parseInt(document.getElementById('prate').value);
   const smode   = document.getElementById('smode').value;
   const rmode   = document.getElementById('rmode').value;
   const terrain = document.getElementById('terrain').value;
-
-  document.getElementById('altV').textContent  = alt;
-  document.getElementById('spdV').textContent  = spd;
-  document.getElementById('olapV').textContent = olap;
-  document.getElementById('folapV').textContent = folap;
-
+ 
   const swath       = Math.round(calcSwath(alt));
   const lineSpacing = Math.round(swath * (1 - olap / 100));
   const density     = calcDensity(alt, spd, prate, olap, smode, rmode, terrain);
@@ -271,31 +395,31 @@ function update() {
   const altOk       = alt <= altLimit;
   const areaKm2     = ((spd * 1800 * lineSpacing) / 1e6).toFixed(1);
   const gsd         = ((alt * 35.9) / (35 * 100)).toFixed(1);
-
+ 
   document.getElementById('out-density').textContent = density;
   document.getElementById('out-swath').textContent   = swath;
   document.getElementById('out-line').textContent    = lineSpacing;
   document.getElementById('out-area').textContent    = areaKm2;
   document.getElementById('out-gsd').textContent     = gsd;
-
+ 
   const altokEl = document.getElementById('mc-altok');
   document.getElementById('out-altok').textContent     = altOk ? 'Within limit' : 'EXCEEDED';
   document.getElementById('out-altok-sub').textContent = 'limit ' + altLimit + ' m at ' + prate + ' kHz';
   altokEl.className = 'metric ' + (altOk ? 'ok' : 'danger');
   document.getElementById('alt-alert').className = 'alert-note' + (altOk ? '' : ' visible');
-
+ 
   document.getElementById('mc-density').className = 'metric ' + (density >= 16 ? 'ok' : density >= 4 ? '' : 'warn');
-
+ 
   document.getElementById('acc-vert').textContent  = acc.vert;
   document.getElementById('acc-horiz').textContent = acc.horiz;
   document.getElementById('acc-scale').textContent = acc.scale;
   document.getElementById('acc-cam').textContent   = acc.cam;
 }
-
-['alt','spd','olap','folap','prate','smode','rmode','terrain'].forEach(function(id) {
-  document.getElementById(id).addEventListener('input', update);
+ 
+['prate','smode','rmode','terrain'].forEach(function(id) {
   document.getElementById(id).addEventListener('change', update);
 });
+ 
 update();
 </script>
 </body>
